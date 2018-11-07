@@ -4,7 +4,7 @@ import pandas
 import matplotlib.pyplot as plt
 
 data = csv.reader(open("players_stats.csv","r"))
-gerado = csv.writer(open("player_stats_new.csv","w"),lineterminator='\r')
+gerado = csv.writer(open("players_stats_new.csv","w"),lineterminator='\r')
 path =  os.path.dirname(os.path.realpath(__file__))
 dir = os.listdir(path)
 cont = 0
