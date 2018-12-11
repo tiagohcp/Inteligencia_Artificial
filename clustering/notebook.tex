@@ -1,0 +1,879 @@
+
+% Default to the notebook output style
+
+    
+
+
+% Inherit from the specified cell style.
+
+
+
+
+    
+\documentclass[11pt]{article}
+
+    
+    
+    \usepackage[T1]{fontenc}
+    % Nicer default font (+ math font) than Computer Modern for most use cases
+    \usepackage{mathpazo}
+
+    % Basic figure setup, for now with no caption control since it's done
+    % automatically by Pandoc (which extracts ![](path) syntax from Markdown).
+    \usepackage{graphicx}
+    % We will generate all images so they have a width \maxwidth. This means
+    % that they will get their normal width if they fit onto the page, but
+    % are scaled down if they would overflow the margins.
+    \makeatletter
+    \def\maxwidth{\ifdim\Gin@nat@width>\linewidth\linewidth
+    \else\Gin@nat@width\fi}
+    \makeatother
+    \let\Oldincludegraphics\includegraphics
+    % Set max figure width to be 80% of text width, for now hardcoded.
+    \renewcommand{\includegraphics}[1]{\Oldincludegraphics[width=.8\maxwidth]{#1}}
+    % Ensure that by default, figures have no caption (until we provide a
+    % proper Figure object with a Caption API and a way to capture that
+    % in the conversion process - todo).
+    \usepackage{caption}
+    \DeclareCaptionLabelFormat{nolabel}{}
+    \captionsetup{labelformat=nolabel}
+
+    \usepackage{adjustbox} % Used to constrain images to a maximum size 
+    \usepackage{xcolor} % Allow colors to be defined
+    \usepackage{enumerate} % Needed for markdown enumerations to work
+    \usepackage{geometry} % Used to adjust the document margins
+    \usepackage{amsmath} % Equations
+    \usepackage{amssymb} % Equations
+    \usepackage{textcomp} % defines textquotesingle
+    % Hack from http://tex.stackexchange.com/a/47451/13684:
+    \AtBeginDocument{%
+        \def\PYZsq{\textquotesingle}% Upright quotes in Pygmentized code
+    }
+    \usepackage{upquote} % Upright quotes for verbatim code
+    \usepackage{eurosym} % defines \euro
+    \usepackage[mathletters]{ucs} % Extended unicode (utf-8) support
+    \usepackage[utf8x]{inputenc} % Allow utf-8 characters in the tex document
+    \usepackage{fancyvrb} % verbatim replacement that allows latex
+    \usepackage{grffile} % extends the file name processing of package graphics 
+                         % to support a larger range 
+    % The hyperref package gives us a pdf with properly built
+    % internal navigation ('pdf bookmarks' for the table of contents,
+    % internal cross-reference links, web links for URLs, etc.)
+    \usepackage{hyperref}
+    \usepackage{longtable} % longtable support required by pandoc >1.10
+    \usepackage{booktabs}  % table support for pandoc > 1.12.2
+    \usepackage[inline]{enumitem} % IRkernel/repr support (it uses the enumerate* environment)
+    \usepackage[normalem]{ulem} % ulem is needed to support strikethroughs (\sout)
+                                % normalem makes italics be italics, not underlines
+    
+
+    
+    
+    % Colors for the hyperref package
+    \definecolor{urlcolor}{rgb}{0,.145,.698}
+    \definecolor{linkcolor}{rgb}{.71,0.21,0.01}
+    \definecolor{citecolor}{rgb}{.12,.54,.11}
+
+    % ANSI colors
+    \definecolor{ansi-black}{HTML}{3E424D}
+    \definecolor{ansi-black-intense}{HTML}{282C36}
+    \definecolor{ansi-red}{HTML}{E75C58}
+    \definecolor{ansi-red-intense}{HTML}{B22B31}
+    \definecolor{ansi-green}{HTML}{00A250}
+    \definecolor{ansi-green-intense}{HTML}{007427}
+    \definecolor{ansi-yellow}{HTML}{DDB62B}
+    \definecolor{ansi-yellow-intense}{HTML}{B27D12}
+    \definecolor{ansi-blue}{HTML}{208FFB}
+    \definecolor{ansi-blue-intense}{HTML}{0065CA}
+    \definecolor{ansi-magenta}{HTML}{D160C4}
+    \definecolor{ansi-magenta-intense}{HTML}{A03196}
+    \definecolor{ansi-cyan}{HTML}{60C6C8}
+    \definecolor{ansi-cyan-intense}{HTML}{258F8F}
+    \definecolor{ansi-white}{HTML}{C5C1B4}
+    \definecolor{ansi-white-intense}{HTML}{A1A6B2}
+
+    % commands and environments needed by pandoc snippets
+    % extracted from the output of `pandoc -s`
+    \providecommand{\tightlist}{%
+      \setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
+    \DefineVerbatimEnvironment{Highlighting}{Verbatim}{commandchars=\\\{\}}
+    % Add ',fontsize=\small' for more characters per line
+    \newenvironment{Shaded}{}{}
+    \newcommand{\KeywordTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{\textbf{{#1}}}}
+    \newcommand{\DataTypeTok}[1]{\textcolor[rgb]{0.56,0.13,0.00}{{#1}}}
+    \newcommand{\DecValTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{{#1}}}
+    \newcommand{\BaseNTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{{#1}}}
+    \newcommand{\FloatTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{{#1}}}
+    \newcommand{\CharTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\StringTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\CommentTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textit{{#1}}}}
+    \newcommand{\OtherTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{{#1}}}
+    \newcommand{\AlertTok}[1]{\textcolor[rgb]{1.00,0.00,0.00}{\textbf{{#1}}}}
+    \newcommand{\FunctionTok}[1]{\textcolor[rgb]{0.02,0.16,0.49}{{#1}}}
+    \newcommand{\RegionMarkerTok}[1]{{#1}}
+    \newcommand{\ErrorTok}[1]{\textcolor[rgb]{1.00,0.00,0.00}{\textbf{{#1}}}}
+    \newcommand{\NormalTok}[1]{{#1}}
+    
+    % Additional commands for more recent versions of Pandoc
+    \newcommand{\ConstantTok}[1]{\textcolor[rgb]{0.53,0.00,0.00}{{#1}}}
+    \newcommand{\SpecialCharTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\VerbatimStringTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\SpecialStringTok}[1]{\textcolor[rgb]{0.73,0.40,0.53}{{#1}}}
+    \newcommand{\ImportTok}[1]{{#1}}
+    \newcommand{\DocumentationTok}[1]{\textcolor[rgb]{0.73,0.13,0.13}{\textit{{#1}}}}
+    \newcommand{\AnnotationTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    \newcommand{\CommentVarTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    \newcommand{\VariableTok}[1]{\textcolor[rgb]{0.10,0.09,0.49}{{#1}}}
+    \newcommand{\ControlFlowTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{\textbf{{#1}}}}
+    \newcommand{\OperatorTok}[1]{\textcolor[rgb]{0.40,0.40,0.40}{{#1}}}
+    \newcommand{\BuiltInTok}[1]{{#1}}
+    \newcommand{\ExtensionTok}[1]{{#1}}
+    \newcommand{\PreprocessorTok}[1]{\textcolor[rgb]{0.74,0.48,0.00}{{#1}}}
+    \newcommand{\AttributeTok}[1]{\textcolor[rgb]{0.49,0.56,0.16}{{#1}}}
+    \newcommand{\InformationTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    \newcommand{\WarningTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    
+    
+    % Define a nice break command that doesn't care if a line doesn't already
+    % exist.
+    \def\br{\hspace*{\fill} \\* }
+    % Math Jax compatability definitions
+    \def\gt{>}
+    \def\lt{<}
+    % Document parameters
+    \title{Cluster - NBA Stats-Copy1}
+    
+    
+    
+
+    % Pygments definitions
+    
+\makeatletter
+\def\PY@reset{\let\PY@it=\relax \let\PY@bf=\relax%
+    \let\PY@ul=\relax \let\PY@tc=\relax%
+    \let\PY@bc=\relax \let\PY@ff=\relax}
+\def\PY@tok#1{\csname PY@tok@#1\endcsname}
+\def\PY@toks#1+{\ifx\relax#1\empty\else%
+    \PY@tok{#1}\expandafter\PY@toks\fi}
+\def\PY@do#1{\PY@bc{\PY@tc{\PY@ul{%
+    \PY@it{\PY@bf{\PY@ff{#1}}}}}}}
+\def\PY#1#2{\PY@reset\PY@toks#1+\relax+\PY@do{#2}}
+
+\expandafter\def\csname PY@tok@w\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.73,0.73}{##1}}}
+\expandafter\def\csname PY@tok@c\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cp\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.74,0.48,0.00}{##1}}}
+\expandafter\def\csname PY@tok@k\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kp\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kt\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.69,0.00,0.25}{##1}}}
+\expandafter\def\csname PY@tok@o\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@ow\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.67,0.13,1.00}{##1}}}
+\expandafter\def\csname PY@tok@nb\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@nf\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@nc\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@nn\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@ne\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.82,0.25,0.23}{##1}}}
+\expandafter\def\csname PY@tok@nv\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@no\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.53,0.00,0.00}{##1}}}
+\expandafter\def\csname PY@tok@nl\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.63,0.63,0.00}{##1}}}
+\expandafter\def\csname PY@tok@ni\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.60,0.60,0.60}{##1}}}
+\expandafter\def\csname PY@tok@na\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.49,0.56,0.16}{##1}}}
+\expandafter\def\csname PY@tok@nt\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@nd\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.67,0.13,1.00}{##1}}}
+\expandafter\def\csname PY@tok@s\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sd\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@si\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.73,0.40,0.53}{##1}}}
+\expandafter\def\csname PY@tok@se\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.73,0.40,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sr\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.40,0.53}{##1}}}
+\expandafter\def\csname PY@tok@ss\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@sx\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@m\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@gh\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,0.50}{##1}}}
+\expandafter\def\csname PY@tok@gu\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.50,0.00,0.50}{##1}}}
+\expandafter\def\csname PY@tok@gd\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.63,0.00,0.00}{##1}}}
+\expandafter\def\csname PY@tok@gi\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.63,0.00}{##1}}}
+\expandafter\def\csname PY@tok@gr\endcsname{\def\PY@tc##1{\textcolor[rgb]{1.00,0.00,0.00}{##1}}}
+\expandafter\def\csname PY@tok@ge\endcsname{\let\PY@it=\textit}
+\expandafter\def\csname PY@tok@gs\endcsname{\let\PY@bf=\textbf}
+\expandafter\def\csname PY@tok@gp\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,0.50}{##1}}}
+\expandafter\def\csname PY@tok@go\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.53,0.53,0.53}{##1}}}
+\expandafter\def\csname PY@tok@gt\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.27,0.87}{##1}}}
+\expandafter\def\csname PY@tok@err\endcsname{\def\PY@bc##1{\setlength{\fboxsep}{0pt}\fcolorbox[rgb]{1.00,0.00,0.00}{1,1,1}{\strut ##1}}}
+\expandafter\def\csname PY@tok@kc\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kd\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kn\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kr\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@bp\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@fm\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@vc\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@vg\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@vi\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@vm\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@sa\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sb\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sc\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@dl\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@s2\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sh\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@s1\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@mb\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mf\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mh\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mi\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@il\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mo\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@ch\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cm\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cpf\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@c1\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cs\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+
+\def\PYZbs{\char`\\}
+\def\PYZus{\char`\_}
+\def\PYZob{\char`\{}
+\def\PYZcb{\char`\}}
+\def\PYZca{\char`\^}
+\def\PYZam{\char`\&}
+\def\PYZlt{\char`\<}
+\def\PYZgt{\char`\>}
+\def\PYZsh{\char`\#}
+\def\PYZpc{\char`\%}
+\def\PYZdl{\char`\$}
+\def\PYZhy{\char`\-}
+\def\PYZsq{\char`\'}
+\def\PYZdq{\char`\"}
+\def\PYZti{\char`\~}
+% for compatibility with earlier versions
+\def\PYZat{@}
+\def\PYZlb{[}
+\def\PYZrb{]}
+\makeatother
+
+
+    % Exact colors from NB
+    \definecolor{incolor}{rgb}{0.0, 0.0, 0.5}
+    \definecolor{outcolor}{rgb}{0.545, 0.0, 0.0}
+
+
+
+    
+    % Prevent overflowing lines due to hard-to-break entities
+    \sloppy 
+    % Setup hyperref package
+    \hypersetup{
+      breaklinks=true,  % so long urls are correctly broken across lines
+      colorlinks=true,
+      urlcolor=urlcolor,
+      linkcolor=linkcolor,
+      citecolor=citecolor,
+      }
+    % Slightly bigger margins than the latex defaults
+    
+    \geometry{verbose,tmargin=1in,bmargin=1in,lmargin=1in,rmargin=1in}
+    
+    
+
+    \begin{document}
+    
+    
+    \maketitle
+    
+    
+
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}1}]:} \PY{k+kn}{import} \PY{n+nn}{pandas} \PY{k}{as} \PY{n+nn}{pd}
+        \PY{k+kn}{import} \PY{n+nn}{matplotlib}\PY{n+nn}{.}\PY{n+nn}{pyplot} \PY{k}{as} \PY{n+nn}{plt}
+        \PY{k+kn}{from} \PY{n+nn}{sklearn}\PY{n+nn}{.}\PY{n+nn}{cluster} \PY{k}{import} \PY{n}{KMeans}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}2}]:} \PY{n}{nba} \PY{o}{=}  \PY{n}{pd}\PY{o}{.}\PY{n}{read\PYZus{}csv}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{players\PYZus{}stats.csv}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+        \PY{n}{nba}\PY{o}{.}\PY{n}{head}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}2}]:}             Name  Games Played   MIN   PTS  FGM  FGA   FG\%  3PM  3PA   3P\%  \textbackslash{}
+        0       AJ Price            26   324   133   51  137  37.2   15   57  26.3   
+        1   Aaron Brooks            82  1885   954  344  817  42.1  121  313  38.7   
+        2   Aaron Gordon            47   797   243   93  208  44.7   13   48  27.1   
+        3  Adreian Payne            32   740   213   91  220  41.4    1    9  11.1   
+        4     Al Horford            76  2318  1156  519  965  53.8   11   36  30.6   
+        
+             {\ldots}       Age  Birth\_Place           Birthdate  \textbackslash{}
+        0    {\ldots}      29.0           us     October 7, 1986   
+        1    {\ldots}      30.0           us    January 14, 1985   
+        2    {\ldots}      20.0           us  September 16, 1995   
+        3    {\ldots}      24.0           us   February 19, 1991   
+        4    {\ldots}      29.0           do        June 3, 1986   
+        
+                             Collage  Experience  Height  Pos  Team  Weight        BMI  
+        0  University of Connecticut           5   185.0   PG   PHO   81.45  23.798393  
+        1       University of Oregon           6   180.0   PG   CHI   72.45  22.361111  
+        2      University of Arizona           R   202.5   PF   ORL   99.00  24.142661  
+        3  Michigan State University           R   205.0   PF   ATL  106.65  25.377751  
+        4      University of Florida           7   205.0    C   ATL  110.25  26.234384  
+        
+        [5 rows x 34 columns]
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}3}]:} \PY{n}{nba} \PY{o}{=} \PY{n}{nba}\PY{o}{.}\PY{n}{drop}\PY{p}{(}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{MIN}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{FGA}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{FG}\PY{l+s+s1}{\PYZpc{}}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{3PM}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{3PA}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{FTM}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{FTA}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{OREB}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{DREB}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{BLK}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{TOV}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{EFF}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{AST/TOV}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{STL/TOV}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Age}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Birth\PYZus{}Place}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Birthdate}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Collage}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Experience}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Height}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Pos}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Team}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Weight}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{BMI}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{,} \PY{n}{axis}\PY{o}{=}\PY{l+m+mi}{1}\PY{p}{)}
+        \PY{c+c1}{\PYZsh{} \PYZsq{}Name\PYZsq{},\PYZsq{}Games Played\PYZsq{}, \PYZsq{}PTS\PYZsq{},\PYZsq{}FGM\PYZsq{}, \PYZsq{}3P\PYZpc{}\PYZsq{}, \PYZsq{}FT\PYZpc{}\PYZsq{}, \PYZsq{}REB\PYZsq{},\PYZsq{}AST\PYZsq{},\PYZsq{}STL\PYZsq{},\PYZsq{}PF\PYZsq{}}
+        \PY{n}{nba}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}3}]:}                   Name  Games Played   PTS  FGM   3P\%    FT\%   REB  AST  STL  \textbackslash{}
+        0             AJ Price            26   133   51  26.3   66.7    32   46    7   
+        1         Aaron Brooks            82   954  344  38.7   83.3   166  261   54   
+        2         Aaron Gordon            47   243   93  27.1   72.1   169   33   21   
+        3        Adreian Payne            32   213   91  11.1   65.2   162   30   19   
+        4           Al Horford            76  1156  519  30.6   75.9   544  244   68   
+        5         Al Jefferson            65  1082  486  40.0   65.5   548  113   47   
+        6        Alan Anderson            74   545  195  34.8   81.2   204   83   56   
+        7           Alec Burks            27   374  121  38.2   82.2   114   82   17   
+        8            Alex Kirk             5     4    1   0.0  100.0     1    1    0   
+        9             Alex Len            69   432  179  33.3   70.2   454   32   34   
+        10        Alexey Shved            42   434  133  33.8   80.7    99  106   30   
+        11       Alexis Ajinca            68   443  181   0.0   81.8   315   47   21   
+        12     Al-Farouq Aminu            74   412  147  27.4   71.2   342   59   70   
+        13        Allen Crabbe            51   168   63  35.3   75.0    73   39   19   
+        14          Alonzo Gee            54   241   87  37.1   70.1    94   25   35   
+        15   Amar'e Stoudemire            59   680  273   0.0   72.0   329   45   29   
+        16        Amir Johnson            75   694  298  41.3   61.2   456  117   44   
+        17    Anderson Varejao            26   255  111   0.0   73.3   170   35   19   
+        18       Andre Dawkins             4     3    1  16.7    0.0     2    1    0   
+        19      Andre Drummond            82  1130  494   0.0   38.9  1104   55   73   
+        20      Andre Iguodala            77   604  231  34.9   59.6   257  228   89   
+        21        Andre Miller            81   355  145  20.6   75.3   153  284   32   
+        22      Andre Roberson            67   228   92  24.7   47.9   255   70   53   
+        23     Andrea Bargnani            29   430  164  36.6   81.3   127   46    2   
+        24    Andrei Kirilenko             7     3    0   0.0   75.0     8    1    1   
+        25        Andrew Bogut            67   422  200   0.0   52.4   543  180   39   
+        26    Andrew Nicholson            40   194   83  31.7   60.0    82   22    6   
+        27      Andrew Wiggins            82  1387  497  31.0   76.0   374  170   86   
+        28     Anthony Bennett            57   298  125  30.4   64.1   216   48   27   
+        29       Anthony Davis            68  1656  642   8.3   80.5   696  149  100   
+        ..                 {\ldots}           {\ldots}   {\ldots}  {\ldots}   {\ldots}    {\ldots}   {\ldots}  {\ldots}  {\ldots}   
+        460      Trevor Booker            79   567  226  34.5   58.1   397   83   43   
+        461         Trey Burke            76   973  370  31.8   75.2   204  328   65   
+        462   Tristan Thompson            82   693  267   0.0   64.1   657   39   34   
+        463       Troy Daniels            47   176   61  36.4   84.6    33   22    6   
+        464          Ty Lawson            75  1143  404  34.1   73.0   234  720   92   
+        465        Tyler Ennis            33   121   52  27.9   71.4    35   73   18   
+        466   Tyler Hansbrough            74   270   86  14.3   69.8   265   21   30   
+        467      Tyler Johnson            32   190   70  37.5   68.1    81   42   33   
+        468       Tyler Zeller            82   833  340   0.0   82.3   465  113   18   
+        469       Tyreke Evans            79  1313  521  30.4   69.4   416  521  100   
+        470       Tyrus Thomas             2     4    1   0.0  100.0     0    1    0   
+        471     Tyson Chandler            75   771  293   0.0   72.0   864   84   42   
+        472      Udonis Haslem            62   261  107  20.0   70.3   258   46   21   
+        473        Vander Blue             2    22    9  20.0   40.0     9    8    3   
+        474      Victor Claver            10    24    9  54.5    0.0    20    1    1   
+        475     Victor Oladipo            72  1292  473  33.9   81.9   302  295  120   
+        476       Vince Carter            66   384  135  29.7   78.9   133   79   43   
+        477    Wayne Ellington            65   650  254  37.0   81.3   210  105   33   
+        478     Wesley Johnson            76   753  286  35.1   80.4   319  124   59   
+        479    Wesley Matthews            60   956  337  38.9   75.2   222  139   77   
+        480        Will Barton            58   397  150  27.1   78.7   162   81   48   
+        481         Will Bynum             7    22   10   0.0   50.0     6   18    1   
+        482        Will Cherry             8    15    5  22.2   50.0     5    8    6   
+        483       Willie Green            52   306  118  34.7   82.4    79   68   26   
+        484    Wilson Chandler            78  1085  418  34.2   77.5   475  134   58   
+        485       Xavier Henry             9    20    3   0.0   58.3     4    3    3   
+        486        Zach LaVine            77   778  286  34.1   84.2   214  276   54   
+        487      Zach Randolph            71  1143  454  35.0   76.5   747  153   69   
+        488      Zaza Pachulia            73   606  240   0.0   78.8   500  178   80   
+        489       Zoran Dragic            16    28   11  21.4   60.0     8    5    2   
+        
+              PF  
+        0     15  
+        1    189  
+        2     83  
+        3     88  
+        4    121  
+        5    139  
+        6    148  
+        7     64  
+        8      1  
+        9    213  
+        10    48  
+        11   151  
+        12   137  
+        13    74  
+        14    58  
+        15   161  
+        16   225  
+        17    58  
+        18     3  
+        19   285  
+        20   100  
+        21   103  
+        22   141  
+        23    53  
+        24     1  
+        25   188  
+        26    51  
+        27   190  
+        28    87  
+        29   141  
+        ..   {\ldots}  
+        460  144  
+        461  119  
+        462  189  
+        463   40  
+        464  128  
+        465   36  
+        466  141  
+        467   42  
+        468  205  
+        469  198  
+        470    0  
+        471  169  
+        472  113  
+        473    4  
+        474   12  
+        475  187  
+        476  102  
+        477   77  
+        478  162  
+        479  132  
+        480   70  
+        481    9  
+        482   10  
+        483   81  
+        484  231  
+        485    6  
+        486  158  
+        487  175  
+        488  170  
+        489    6  
+        
+        [490 rows x 10 columns]
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}4}]:} \PY{c+c1}{\PYZsh{} coeficiente de relação (quanto mais próximo de 1.0 ou \PYZhy{}1.0, melhor atributo)}
+        \PY{n}{nba}\PY{o}{.}\PY{n}{corr}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}4}]:}               Games Played       PTS       FGM       3P\%       FT\%       REB  \textbackslash{}
+        Games Played      1.000000  0.727973  0.739667  0.218361  0.341861  0.681647   
+        PTS               0.727973  1.000000  0.990487  0.290644  0.340922  0.696554   
+        FGM               0.739667  0.990487  1.000000  0.254783  0.315404  0.739720   
+        3P\%               0.218361  0.290644  0.254783  1.000000  0.317313 -0.061888   
+        FT\%               0.341861  0.340922  0.315404  0.317313  1.000000  0.106736   
+        REB               0.681647  0.696554  0.739720 -0.061888  0.106736  1.000000   
+        AST               0.541304  0.728515  0.704545  0.292613  0.267797  0.348135   
+        STL               0.684127  0.807294  0.789740  0.280100  0.258761  0.548334   
+        PF                0.860430  0.753363  0.775502  0.099524  0.218891  0.810851   
+        
+                           AST       STL        PF  
+        Games Played  0.541304  0.684127  0.860430  
+        PTS           0.728515  0.807294  0.753363  
+        FGM           0.704545  0.789740  0.775502  
+        3P\%           0.292613  0.280100  0.099524  
+        FT\%           0.267797  0.258761  0.218891  
+        REB           0.348135  0.548334  0.810851  
+        AST           1.000000  0.766975  0.527894  
+        STL           0.766975  1.000000  0.710023  
+        PF            0.527894  0.710023  1.000000  
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}5}]:} \PY{n}{Xnba} \PY{o}{=} \PY{n}{nba}\PY{o}{.}\PY{n}{iloc}\PY{p}{[}\PY{p}{:}\PY{p}{,} \PY{l+m+mi}{1}\PY{p}{:}\PY{l+m+mi}{10}\PY{p}{]}\PY{o}{.}\PY{n}{values}
+        \PY{n}{Xnba}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}5}]:} array([[  26.,  133.,   51., {\ldots},   46.,    7.,   15.],
+               [  82.,  954.,  344., {\ldots},  261.,   54.,  189.],
+               [  47.,  243.,   93., {\ldots},   33.,   21.,   83.],
+               {\ldots},
+               [  71., 1143.,  454., {\ldots},  153.,   69.,  175.],
+               [  73.,  606.,  240., {\ldots},  178.,   80.,  170.],
+               [  16.,   28.,   11., {\ldots},    5.,    2.,    6.]])
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}6}]:} \PY{c+c1}{\PYZsh{} Parametrizando K\PYZhy{}Means com 3 Clusters e Metodo de Inicialização Randômica}
+        \PY{n}{kmeans} \PY{o}{=} \PY{n}{KMeans}\PY{p}{(}\PY{n}{n\PYZus{}clusters} \PY{o}{=} \PY{l+m+mi}{4}\PY{p}{,} \PY{n}{init} \PY{o}{=} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{random}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}7}]:} \PY{c+c1}{\PYZsh{} Aplicando o K\PYZhy{}Means}
+        \PY{n}{kmeans}\PY{o}{.}\PY{n}{fit}\PY{p}{(}\PY{n}{Xnba}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}7}]:} KMeans(algorithm='auto', copy\_x=True, init='random', max\_iter=300,
+            n\_clusters=4, n\_init=10, n\_jobs=None, precompute\_distances='auto',
+            random\_state=None, tol=0.0001, verbose=0)
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}8}]:} \PY{c+c1}{\PYZsh{} Listando os Centroids para cada um dos 03 Clusters}
+        \PY{n}{kmeans}\PY{o}{.}\PY{n}{cluster\PYZus{}centers\PYZus{}}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}8}]:} array([[  27.24022346,  101.88268156,   38.40782123,   20.81620112,
+                  63.02569832,   55.60335196,   24.16759777,   11.3575419 ,
+                  35.22346369],
+               [  71.48245614,  844.69298246,  317.84210526,   29.33947368,
+                  75.29912281,  357.71052632,  176.4122807 ,   62.77192982,
+                 159.5       ],
+               [  62.93288591,  439.69798658,  166.69127517,   26.30671141,
+                  72.77248322,  224.08053691,  100.79865772,   37.77852349,
+                 115.12080537],
+               [  74.47916667, 1374.70833333,  507.08333333,   31.53958333,
+                  79.41458333,  466.3125    ,  307.20833333,   87.77083333,
+                 168.45833333]])
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}9}]:} \PY{c+c1}{\PYZsh{} Realcula os Centroids..}
+        \PY{n}{kmeans}\PY{o}{.}\PY{n}{fit}\PY{p}{(}\PY{n}{Xnba}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}9}]:} KMeans(algorithm='auto', copy\_x=True, init='random', max\_iter=300,
+            n\_clusters=4, n\_init=10, n\_jobs=None, precompute\_distances='auto',
+            random\_state=None, tol=0.0001, verbose=0)
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}10}]:} \PY{c+c1}{\PYZsh{} Listando os Centroids para cada um dos 03 Clusters}
+         \PY{n}{kmeans}\PY{o}{.}\PY{n}{cluster\PYZus{}centers\PYZus{}}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}10}]:} array([[  27.24022346,  101.88268156,   38.40782123,   20.81620112,
+                   63.02569832,   55.60335196,   24.16759777,   11.3575419 ,
+                   35.22346369],
+                [  74.47916667, 1374.70833333,  507.08333333,   31.53958333,
+                   79.41458333,  466.3125    ,  307.20833333,   87.77083333,
+                  168.45833333],
+                [  62.93288591,  439.69798658,  166.69127517,   26.30671141,
+                   72.77248322,  224.08053691,  100.79865772,   37.77852349,
+                  115.12080537],
+                [  71.48245614,  844.69298246,  317.84210526,   29.33947368,
+                   75.29912281,  357.71052632,  176.4122807 ,   62.77192982,
+                  159.5       ]])
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}11}]:} \PY{c+c1}{\PYZsh{} Executa K\PYZhy{}Means para agrupar os dados e retorna Tabela de Distancias}
+         \PY{c+c1}{\PYZsh{} Calcula a distancia entre os dados de cada linha (instância) e cada um dos 3 clusters}
+         \PY{n}{distance} \PY{o}{=} \PY{n}{kmeans}\PY{o}{.}\PY{n}{fit\PYZus{}transform}\PY{p}{(}\PY{n}{Xnba}\PY{p}{)}
+         \PY{n}{distance}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}11}]:} array([[ 398.23735273,  852.61299287, 1428.04813088,   51.96677839],
+                [ 576.69008781,  240.31170731,  545.52712425,  958.75398151],
+                [ 229.58391882,  690.63662431, 1276.0891348 ,  197.86980565],
+                {\ldots},
+                [ 927.67286578,  509.83647723,  399.37449369, 1333.9678508 ],
+                [ 348.82495388,  290.80056499,  825.30947122,  736.99278775],
+                [ 513.55798807,  971.31354677, 1548.79021469,   98.48906168]])
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}12}]:} \PY{c+c1}{\PYZsh{} Para cada uma das instâncias, a qual dos 3 clusters ela pertence..0, 1 ou 2 ?}
+         \PY{n}{labels} \PY{o}{=} \PY{n}{kmeans}\PY{o}{.}\PY{n}{labels\PYZus{}}
+         \PY{n}{labels}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}12}]:} array([3, 1, 3, 3, 2, 1, 0, 0, 3, 0, 0, 0, 0, 3, 3, 1, 1, 3, 3, 2, 0, 0,
+                0, 0, 3, 0, 3, 2, 0, 2, 1, 0, 3, 3, 0, 1, 3, 0, 1, 0, 1, 0, 3, 0,
+                2, 1, 1, 1, 0, 1, 3, 0, 1, 3, 3, 0, 2, 3, 3, 0, 3, 0, 1, 1, 0, 3,
+                1, 0, 0, 0, 0, 1, 0, 3, 3, 1, 2, 3, 0, 1, 3, 3, 3, 0, 0, 1, 3, 0,
+                1, 1, 3, 2, 0, 1, 3, 1, 0, 0, 3, 3, 0, 1, 0, 3, 3, 1, 1, 3, 2, 2,
+                1, 1, 1, 2, 1, 0, 0, 3, 0, 1, 2, 0, 1, 3, 3, 1, 0, 3, 3, 1, 3, 2,
+                3, 3, 1, 3, 1, 3, 3, 3, 2, 2, 1, 3, 1, 3, 1, 1, 3, 3, 3, 3, 3, 3,
+                0, 1, 1, 1, 3, 1, 3, 0, 3, 3, 2, 2, 1, 3, 2, 3, 3, 1, 1, 0, 3, 0,
+                3, 0, 3, 0, 0, 0, 1, 0, 0, 3, 0, 3, 0, 0, 3, 1, 0, 0, 2, 0, 3, 3,
+                3, 3, 3, 3, 0, 1, 3, 1, 3, 3, 1, 0, 0, 3, 3, 3, 2, 2, 3, 3, 0, 3,
+                3, 0, 1, 3, 3, 0, 3, 2, 0, 2, 0, 0, 3, 0, 2, 3, 3, 3, 3, 0, 3, 3,
+                3, 2, 3, 0, 0, 1, 3, 1, 3, 3, 1, 3, 0, 3, 1, 1, 0, 3, 3, 3, 0, 3,
+                1, 1, 1, 3, 0, 1, 0, 1, 3, 0, 0, 2, 1, 0, 1, 0, 0, 2, 1, 0, 3, 0,
+                3, 1, 2, 0, 0, 2, 2, 0, 0, 3, 0, 3, 3, 0, 0, 2, 3, 3, 0, 2, 1, 3,
+                1, 3, 3, 1, 3, 1, 2, 1, 0, 1, 0, 0, 1, 3, 2, 1, 3, 0, 1, 1, 3, 0,
+                3, 0, 3, 1, 0, 1, 0, 3, 3, 0, 0, 3, 0, 3, 1, 2, 3, 3, 3, 1, 1, 3,
+                0, 3, 0, 1, 0, 1, 0, 2, 3, 0, 1, 3, 1, 0, 0, 0, 0, 3, 1, 0, 2, 3,
+                2, 1, 0, 3, 3, 3, 1, 0, 3, 0, 1, 0, 0, 0, 0, 3, 3, 3, 2, 3, 0, 3,
+                3, 3, 1, 0, 0, 0, 1, 3, 3, 1, 2, 1, 3, 2, 1, 3, 0, 3, 3, 3, 1, 3,
+                3, 0, 3, 0, 3, 0, 3, 0, 0, 3, 0, 3, 1, 3, 0, 2, 0, 3, 0, 1, 0, 0,
+                0, 1, 0, 1, 0, 0, 2, 3, 1, 1, 3, 2, 3, 0, 1, 0, 0, 3, 3, 1, 0, 1,
+                1, 3, 2, 3, 0, 3, 1, 2, 3, 1, 0, 3, 3, 2, 0, 0, 1, 1, 0, 3, 3, 0,
+                1, 3, 1, 2, 1, 3])
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}13}]:} \PY{n}{nba}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{cluster}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{=} \PY{n}{labels}
+         \PY{n}{nba}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}13}]:}                   Name  Games Played   PTS  FGM   3P\%    FT\%   REB  AST  STL  \textbackslash{}
+         0             AJ Price            26   133   51  26.3   66.7    32   46    7   
+         1         Aaron Brooks            82   954  344  38.7   83.3   166  261   54   
+         2         Aaron Gordon            47   243   93  27.1   72.1   169   33   21   
+         3        Adreian Payne            32   213   91  11.1   65.2   162   30   19   
+         4           Al Horford            76  1156  519  30.6   75.9   544  244   68   
+         5         Al Jefferson            65  1082  486  40.0   65.5   548  113   47   
+         6        Alan Anderson            74   545  195  34.8   81.2   204   83   56   
+         7           Alec Burks            27   374  121  38.2   82.2   114   82   17   
+         8            Alex Kirk             5     4    1   0.0  100.0     1    1    0   
+         9             Alex Len            69   432  179  33.3   70.2   454   32   34   
+         10        Alexey Shved            42   434  133  33.8   80.7    99  106   30   
+         11       Alexis Ajinca            68   443  181   0.0   81.8   315   47   21   
+         12     Al-Farouq Aminu            74   412  147  27.4   71.2   342   59   70   
+         13        Allen Crabbe            51   168   63  35.3   75.0    73   39   19   
+         14          Alonzo Gee            54   241   87  37.1   70.1    94   25   35   
+         15   Amar'e Stoudemire            59   680  273   0.0   72.0   329   45   29   
+         16        Amir Johnson            75   694  298  41.3   61.2   456  117   44   
+         17    Anderson Varejao            26   255  111   0.0   73.3   170   35   19   
+         18       Andre Dawkins             4     3    1  16.7    0.0     2    1    0   
+         19      Andre Drummond            82  1130  494   0.0   38.9  1104   55   73   
+         20      Andre Iguodala            77   604  231  34.9   59.6   257  228   89   
+         21        Andre Miller            81   355  145  20.6   75.3   153  284   32   
+         22      Andre Roberson            67   228   92  24.7   47.9   255   70   53   
+         23     Andrea Bargnani            29   430  164  36.6   81.3   127   46    2   
+         24    Andrei Kirilenko             7     3    0   0.0   75.0     8    1    1   
+         25        Andrew Bogut            67   422  200   0.0   52.4   543  180   39   
+         26    Andrew Nicholson            40   194   83  31.7   60.0    82   22    6   
+         27      Andrew Wiggins            82  1387  497  31.0   76.0   374  170   86   
+         28     Anthony Bennett            57   298  125  30.4   64.1   216   48   27   
+         29       Anthony Davis            68  1656  642   8.3   80.5   696  149  100   
+         ..                 {\ldots}           {\ldots}   {\ldots}  {\ldots}   {\ldots}    {\ldots}   {\ldots}  {\ldots}  {\ldots}   
+         460      Trevor Booker            79   567  226  34.5   58.1   397   83   43   
+         461         Trey Burke            76   973  370  31.8   75.2   204  328   65   
+         462   Tristan Thompson            82   693  267   0.0   64.1   657   39   34   
+         463       Troy Daniels            47   176   61  36.4   84.6    33   22    6   
+         464          Ty Lawson            75  1143  404  34.1   73.0   234  720   92   
+         465        Tyler Ennis            33   121   52  27.9   71.4    35   73   18   
+         466   Tyler Hansbrough            74   270   86  14.3   69.8   265   21   30   
+         467      Tyler Johnson            32   190   70  37.5   68.1    81   42   33   
+         468       Tyler Zeller            82   833  340   0.0   82.3   465  113   18   
+         469       Tyreke Evans            79  1313  521  30.4   69.4   416  521  100   
+         470       Tyrus Thomas             2     4    1   0.0  100.0     0    1    0   
+         471     Tyson Chandler            75   771  293   0.0   72.0   864   84   42   
+         472      Udonis Haslem            62   261  107  20.0   70.3   258   46   21   
+         473        Vander Blue             2    22    9  20.0   40.0     9    8    3   
+         474      Victor Claver            10    24    9  54.5    0.0    20    1    1   
+         475     Victor Oladipo            72  1292  473  33.9   81.9   302  295  120   
+         476       Vince Carter            66   384  135  29.7   78.9   133   79   43   
+         477    Wayne Ellington            65   650  254  37.0   81.3   210  105   33   
+         478     Wesley Johnson            76   753  286  35.1   80.4   319  124   59   
+         479    Wesley Matthews            60   956  337  38.9   75.2   222  139   77   
+         480        Will Barton            58   397  150  27.1   78.7   162   81   48   
+         481         Will Bynum             7    22   10   0.0   50.0     6   18    1   
+         482        Will Cherry             8    15    5  22.2   50.0     5    8    6   
+         483       Willie Green            52   306  118  34.7   82.4    79   68   26   
+         484    Wilson Chandler            78  1085  418  34.2   77.5   475  134   58   
+         485       Xavier Henry             9    20    3   0.0   58.3     4    3    3   
+         486        Zach LaVine            77   778  286  34.1   84.2   214  276   54   
+         487      Zach Randolph            71  1143  454  35.0   76.5   747  153   69   
+         488      Zaza Pachulia            73   606  240   0.0   78.8   500  178   80   
+         489       Zoran Dragic            16    28   11  21.4   60.0     8    5    2   
+         
+               PF  cluster  
+         0     15        3  
+         1    189        1  
+         2     83        3  
+         3     88        3  
+         4    121        2  
+         5    139        1  
+         6    148        0  
+         7     64        0  
+         8      1        3  
+         9    213        0  
+         10    48        0  
+         11   151        0  
+         12   137        0  
+         13    74        3  
+         14    58        3  
+         15   161        1  
+         16   225        1  
+         17    58        3  
+         18     3        3  
+         19   285        2  
+         20   100        0  
+         21   103        0  
+         22   141        0  
+         23    53        0  
+         24     1        3  
+         25   188        0  
+         26    51        3  
+         27   190        2  
+         28    87        0  
+         29   141        2  
+         ..   {\ldots}      {\ldots}  
+         460  144        0  
+         461  119        1  
+         462  189        1  
+         463   40        3  
+         464  128        2  
+         465   36        3  
+         466  141        0  
+         467   42        3  
+         468  205        1  
+         469  198        2  
+         470    0        3  
+         471  169        1  
+         472  113        0  
+         473    4        3  
+         474   12        3  
+         475  187        2  
+         476  102        0  
+         477   77        0  
+         478  162        1  
+         479  132        1  
+         480   70        0  
+         481    9        3  
+         482   10        3  
+         483   81        0  
+         484  231        1  
+         485    6        3  
+         486  158        1  
+         487  175        2  
+         488  170        1  
+         489    6        3  
+         
+         [490 rows x 11 columns]
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}14}]:} \PY{c+c1}{\PYZsh{} Centroides Calculados para cada uma das Features, para cada um dos 3 clusters}
+         \PY{n}{kmeans}\PY{o}{.}\PY{n}{cluster\PYZus{}centers\PYZus{}}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}14}]:} array([[  62.82666667,  438.73333333,  166.27333333,   26.35933333,
+                   72.88133333,  223.3       ,  100.42      ,   37.66666667,
+                  114.7       ],
+                [  71.48245614,  844.69298246,  317.84210526,   29.33947368,
+                   75.29912281,  357.71052632,  176.4122807 ,   62.77192982,
+                  159.5       ],
+                [  74.47916667, 1374.70833333,  507.08333333,   31.53958333,
+                   79.41458333,  466.3125    ,  307.20833333,   87.77083333,
+                  168.45833333],
+                [  27.12921348,  100.79775281,   38.03932584,   20.74101124,
+                   62.87921348,   55.31460674,   24.05617978,   11.30337079,
+                   35.12921348]])
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}15}]:} \PY{c+c1}{\PYZsh{} Visualizando os Clusters}
+         \PY{n}{x} \PY{o}{=} \PY{n}{nba}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Games Played}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}
+         \PY{n}{y} \PY{o}{=} \PY{n}{nba}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{PTS}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{scatter}\PY{p}{(}\PY{n}{x}\PY{p}{,} \PY{n}{y}\PY{p}{,} \PY{n}{s} \PY{o}{=} \PY{l+m+mi}{50}\PY{p}{,} \PY{n}{c} \PY{o}{=} \PY{n}{nba}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{cluster}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{scatter}\PY{p}{(}\PY{n}{kmeans}\PY{o}{.}\PY{n}{cluster\PYZus{}centers\PYZus{}}\PY{p}{[}\PY{p}{:}\PY{p}{,} \PY{l+m+mi}{0}\PY{p}{]}\PY{p}{,} \PY{n}{kmeans}\PY{o}{.}\PY{n}{cluster\PYZus{}centers\PYZus{}}\PY{p}{[}\PY{p}{:}\PY{p}{,} \PY{l+m+mi}{1}\PY{p}{]}\PY{p}{,} \PY{n}{s} \PY{o}{=} \PY{l+m+mi}{150}\PY{p}{,} \PY{n}{c} \PY{o}{=} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{red}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{title}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Players Clusters and Centroids}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{xlabel}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Games Played}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{ylabel}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Points}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{legend}\PY{p}{(}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{show}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_14_0.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}16}]:} \PY{c+c1}{\PYZsh{} Visualizando os Clusters}
+         \PY{n}{x} \PY{o}{=} \PY{n}{nba}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{PTS}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}
+         \PY{n}{y} \PY{o}{=} \PY{n}{nba}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{FGM}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{scatter}\PY{p}{(}\PY{n}{x}\PY{p}{,} \PY{n}{y}\PY{p}{,} \PY{n}{s} \PY{o}{=} \PY{l+m+mi}{50}\PY{p}{,} \PY{n}{c} \PY{o}{=} \PY{n}{nba}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{cluster}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{scatter}\PY{p}{(}\PY{n}{kmeans}\PY{o}{.}\PY{n}{cluster\PYZus{}centers\PYZus{}}\PY{p}{[}\PY{p}{:}\PY{p}{,} \PY{l+m+mi}{1}\PY{p}{]}\PY{p}{,} \PY{n}{kmeans}\PY{o}{.}\PY{n}{cluster\PYZus{}centers\PYZus{}}\PY{p}{[}\PY{p}{:}\PY{p}{,} \PY{l+m+mi}{2}\PY{p}{]}\PY{p}{,} \PY{n}{s} \PY{o}{=} \PY{l+m+mi}{150}\PY{p}{,} \PY{n}{c} \PY{o}{=} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{red}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{title}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Players Clusters and Centroids}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{xlabel}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Points}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{ylabel}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Field Goals Made}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{legend}\PY{p}{(}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{show}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_15_0.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}17}]:} \PY{c+c1}{\PYZsh{} Vamos agrupar uma nova instância ?}
+         \PY{c+c1}{\PYZsh{} Dado um perfil de cliente, cliente}
+         \PY{c+c1}{\PYZsh{} O resultado indica a qual cluster esse novo cliente foi atribuído!}
+         \PY{n}{newcustomer} \PY{o}{=} \PY{p}{[} \PY{p}{[}\PY{l+m+mi}{70}\PY{p}{,}\PY{l+m+mi}{750}\PY{p}{,}\PY{l+m+mi}{280}\PY{p}{,}\PY{l+m+mf}{30.8}\PY{p}{,}\PY{l+m+mf}{75.9}\PY{p}{,}\PY{l+m+mi}{380}\PY{p}{,}\PY{l+m+mi}{150}\PY{p}{,}\PY{l+m+mi}{66}\PY{p}{,}\PY{l+m+mi}{146}\PY{p}{]} \PY{p}{]}
+         \PY{n}{kmeans}\PY{o}{.}\PY{n}{predict}\PY{p}{(}\PY{n}{newcustomer}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}17}]:} array([1])
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}18}]:} \PY{c+c1}{\PYZsh{} Metododo de Elbow: como encontrar valor ideal de K ?}
+         \PY{c+c1}{\PYZsh{} Basicamente o que o método faz é testar a variância dos dados em relação ao número de clu}
+         \PY{c+c1}{\PYZsh{} O que percebemos no Gráfico abaixo?}
+         \PY{c+c1}{\PYZsh{} Soma dos erros quadráticos de cada cluster (WCSS) cai e se estabiliza, à medida que aumen}
+         \PY{n}{wcss} \PY{o}{=} \PY{p}{[}\PY{p}{]}
+         \PY{n}{maxclusters} \PY{o}{=} \PY{l+m+mi}{11}
+         \PY{k}{for} \PY{n}{i} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{l+m+mi}{1}\PY{p}{,} \PY{n}{maxclusters}\PY{p}{)}\PY{p}{:}
+          \PY{n}{kmeans} \PY{o}{=} \PY{n}{KMeans}\PY{p}{(}\PY{n}{n\PYZus{}clusters} \PY{o}{=} \PY{n}{i}\PY{p}{,} \PY{n}{init} \PY{o}{=} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{random}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+          \PY{n}{kmeans}\PY{o}{.}\PY{n}{fit}\PY{p}{(}\PY{n}{Xnba}\PY{p}{)}
+          \PY{n+nb}{print}\PY{p}{(}\PY{n}{i}\PY{p}{,}\PY{n}{kmeans}\PY{o}{.}\PY{n}{inertia\PYZus{}}\PY{p}{)}
+          \PY{n}{wcss}\PY{o}{.}\PY{n}{append}\PY{p}{(}\PY{n}{kmeans}\PY{o}{.}\PY{n}{inertia\PYZus{}}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{n+nb}{range}\PY{p}{(}\PY{l+m+mi}{1}\PY{p}{,} \PY{n}{maxclusters}\PY{p}{)}\PY{p}{,} \PY{n}{wcss}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{title}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{O Metodo Elbow}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{xlabel}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Qtde de Clusters}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{ylabel}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{WCSS}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)} \PY{c+c1}{\PYZsh{}within cluster sum of squares}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{show}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+1 128061360.45765308
+2 48038990.66536994
+3 30074951.957812674
+4 22439261.90874303
+5 19091883.41875273
+6 16134522.621431755
+7 14047667.101484755
+8 12568539.852315769
+9 11579517.637209805
+10 11130617.707704846
+
+    \end{Verbatim}
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_17_1.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+
+    % Add a bibliography block to the postdoc
+    
+    
+    
+    \end{document}
